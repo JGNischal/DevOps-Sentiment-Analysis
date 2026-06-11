@@ -119,6 +119,14 @@ def create_app() -> Flask:
 
     # ── Routes ────────────────────────────────────────────────────────────────
 
+    @app.route("/")
+    def home():
+        return jsonify({
+            "message": "Sentiment Analysis API is running successfully",
+            "status": "ok",
+            "health_endpoint": "/api/health",
+            "predict_endpoint": "/api/predict"
+        })
     @app.get("/api/health")
     def health():
         """
