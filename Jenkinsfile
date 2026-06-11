@@ -71,7 +71,7 @@ pipeline {
             steps {
                 bat 'docker stop sentiment-analysis-container || exit /b 0'
                 bat 'docker rm sentiment-analysis-container || exit /b 0'
-                bat 'docker run -d --name sentiment-analysis-container -p 5050:5050 sentiment-analysis'
+                bat 'docker run -d --name sentiment-analysis-container -p 5050:5000 sentiment-analysis'
             }
         }
     }
