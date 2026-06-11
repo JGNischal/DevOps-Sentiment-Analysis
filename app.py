@@ -529,6 +529,6 @@ if __name__ == "__main__":
 
     app.run(
         host="0.0.0.0",
-        ort=int(os.environ.get("PORT", args.port)),
+        port=int(os.environ.get("PORT", args.port)),
         debug=debug_mode,
     )

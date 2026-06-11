@@ -74,5 +74,10 @@ pipeline {
                 bat 'docker run -d --name sentiment-analysis-container -p 5000:5000 sentiment-analysis'
             }
         }
+        stage('Render Deployment'){
+            steps{
+                bat 'echo Render deployment initiated'
+            }
+        }
     }
 }
