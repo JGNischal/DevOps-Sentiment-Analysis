@@ -528,7 +528,7 @@ if __name__ == "__main__":
     print(f"{'═' * 56}\n")
 
     app.run(
-        host=args.host,
-        port=args.port,
+        host="0.0.0.0",
+        ort=int(os.environ.get("PORT", args.port)),
         debug=debug_mode,
     )
