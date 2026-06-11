@@ -27,7 +27,7 @@ import argparse
 from functools import wraps
 from datetime import datetime, timezone
 
-from flask import Flask, jsonify, request, g
+from flask import Flask, jsonify, request, g, send_file, render_template
 from flask_cors import CORS
 
 # ---------------------------------------------------------------------------
@@ -121,12 +121,8 @@ def create_app() -> Flask:
 
     @app.route("/")
     def home():
-        return jsonify({
-            "message": "Sentiment Analysis API is running successfully",
-            "status": "ok",
-            "health_endpoint": "/api/health",
-            "predict_endpoint": "/api/predict"
-        })
+        return render_template("index.html")
+    
     @app.get("/api/health")
     def health():
         """
