@@ -78,7 +78,9 @@ def create_app() -> Flask:
         Fully configured app instance.
     """
     app = Flask(__name__)
-
+    print("Root path:", app.root_path)
+    print("Template folder:", app.template_folder)
+    print("Static folder:", app.static_folder)
     # ── CORS ─────────────────────────────────────────────────────────────────
     # Allow all origins in development.  In production, restrict to your
     # frontend domain:  CORS(app, origins=["https://yourfrontend.com"])
