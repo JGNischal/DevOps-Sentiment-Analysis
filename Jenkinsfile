@@ -63,7 +63,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                bat 'docker build -t Sentiment_Analysis .'
+                bat 'docker build -t sentiment-analysis .'
             }
         }
 
