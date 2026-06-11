@@ -12,7 +12,7 @@ pipeline {
         stage('Check Python') {
             steps {
                 bat 'python --version'
-                bat 'pip --version'
+                bat 'python pip --version'
             }
         }
         stage('Install Dependencies') {
