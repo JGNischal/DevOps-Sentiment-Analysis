@@ -17,7 +17,7 @@ pipeline {
         stage('OWASP Dependency Check') {
             steps {
                 bat '''
-                "D:\Engineering\VI Sem\DevOps Lab\dependency-check\bin\dependency-check.bat" ^
+                "D:\\Engineering\\VI Sem\\DevOps Lab\\dependency-check\\bin\\dependency-check.bat" ^
                 --project "Sentiment_Analysis" ^
                 --scan . ^
                 --format HTML ^
