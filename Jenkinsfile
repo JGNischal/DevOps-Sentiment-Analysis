@@ -67,12 +67,12 @@ pipeline {
             }
         }
 
-stage('Deploy Container') {
-    steps {
-        bat 'docker stop Sentiment_Analysis-container || exit /b 0'
-        bat 'docker rm Sentiment_Analysis-container || exit /b 0'
-        bat 'docker run -d --name Sentiment_Analysis-container -p 5050:5050 Sentiment_Analysis'
-    }
-}
+        stage('Deploy Container') {
+            steps {
+                bat 'docker stop sentiment-analysis-container || exit /b 0'
+                bat 'docker rm sentiment-analysis-container || exit /b 0'
+                bat 'docker run -d --name sentiment-analysis-container -p 5050:5050 sentiment-analysis'
+            }
+        }
     }
 }
