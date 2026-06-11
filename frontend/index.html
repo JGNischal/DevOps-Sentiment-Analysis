@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentiment Analysis Dashboard</title>
+  <!-- Chart.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --accent: #60a5fa;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #0c1421;
+      color: var(--accent);
+      padding: 1rem 2rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .chart-container {
+      position: relative;
+      margin-top: 0.5rem;
+      height: 300px;
+    }
+
+    .roc-chart-container {
+      height: 350px;
+      margin-top: 0.5rem;
+    }
+
+    .cm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .cm-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem;
+    }
+
+    .cm-card h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .cm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    .cm-table th,
+    .cm-table td {
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.5rem;
+      text-align: center;
+    }
+
+    .cm-table th {
+      background-color: #111928;
+    }
+
+    .live-prediction {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background-color: #0f172a;
+      color: var(--text);
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    select,
+    button {
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background-color: #161e2e;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    button {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .result-card {
+      margin-top: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background-color: #111928;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .sentiment-badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .sentiment-pos {
+      background-color: rgba(34, 197, 94, 0.2);
+      color: var(--success);
+    }
+
+    .sentiment-neg {
+      background-color: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 12px;
+      background-color: var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 0.25rem 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: var(--success);
+      border-radius: 6px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .error {
+      background-color: rgba(239, 68, 68, 0.15);
+      border-color: var(--danger);
+      color: var(--danger);
+      padding: 0.75rem;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 0 0.5rem;
+      }
+      .chart-container,
+      .roc-chart-container {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sentiment Analysis Dashboard</h1>
+  </header>
+
+  <main>
+    <!-- Section 1: Model Comparison -->
+    <section class="section">
+      <h2 class="section-title">Model Comparison</h2>
+
+      <div class="card">
+        <h3>Metrics (Bar Chart)</h3>
+        <div class="chart-container">
+          <canvas id="metricsChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>ROC Curves</h3>
+        <div class="roc-chart-container">
+          <canvas id="rocChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Confusion Matrices</h3>
+        <div class="cm-grid" id="confusionMatrices"></div>
+      </div>
+    </section>
+
+    <!-- Section 2: Live Prediction -->
+    <section class="section">
+      <h2 class="section-title">Live Prediction</h2>
+
+      <div class="card">
+        <div class="live-prediction">
+          <div>
+            <label for="reviewText">Movie Review:</label>
+            <textarea id="reviewText" placeholder="Paste a movie review here..."></textarea>
+          </div>
+
+          <div>
+            <label for="modelSelect">Model:</label>
+            <select id="modelSelect">
+              <option value="">Loading models...</option>
+            </select>
+          </div>
+
+          <button id="predictBtn">Predict</button>
+
+          <div id="resultContainer"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Logic in external JS file -->
+  <script src="app.js"></script>
+</body>
+</html>

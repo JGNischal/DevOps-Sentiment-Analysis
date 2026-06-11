@@ -1,0 +1,137 @@
+{
+  "naive_bayes": {
+    "label": "Naive Bayes",
+    "accuracy": 0.8832,
+    "precision": 0.8776,
+    "recall": 0.8917,
+    "f1": 0.8846,
+    "roc_auc": 0.9506,
+    "confusion_matrix": {
+      "true_negative": 4321,
+      "false_positive": 619,
+      "false_negative": 539,
+      "true_positive": 4438,
+      "false_positive_rate": 0.1253,
+      "false_negative_rate": 0.1083
+    },
+    "classification_report": {
+      "negative": {
+        "precision": 0.8891,
+        "recall": 0.8747,
+        "f1-score": 0.8818,
+        "support": 4940.0
+      },
+      "positive": {
+        "precision": 0.8776,
+        "recall": 0.8917,
+        "f1-score": 0.8846,
+        "support": 4977.0
+      },
+      "accuracy": 0.8832,
+      "macro avg": {
+        "precision": 0.8833,
+        "recall": 0.8832,
+        "f1-score": 0.8832,
+        "support": 9917.0
+      },
+      "weighted avg": {
+        "precision": 0.8833,
+        "recall": 0.8832,
+        "f1-score": 0.8832,
+        "support": 9917.0
+      }
+    },
+    "inference_time_s": 0.0065,
+    "n_test_samples": 9917
+  },
+  "svm": {
+    "label": "SVM (LinearSVC)",
+    "accuracy": 0.9054,
+    "precision": 0.9019,
+    "recall": 0.9106,
+    "f1": 0.9062,
+    "roc_auc": 0.9665,
+    "confusion_matrix": {
+      "true_negative": 4447,
+      "false_positive": 493,
+      "false_negative": 445,
+      "true_positive": 4532,
+      "false_positive_rate": 0.0998,
+      "false_negative_rate": 0.0894
+    },
+    "classification_report": {
+      "negative": {
+        "precision": 0.909,
+        "recall": 0.9002,
+        "f1-score": 0.9046,
+        "support": 4940.0
+      },
+      "positive": {
+        "precision": 0.9019,
+        "recall": 0.9106,
+        "f1-score": 0.9062,
+        "support": 4977.0
+      },
+      "accuracy": 0.9054,
+      "macro avg": {
+        "precision": 0.9055,
+        "recall": 0.9054,
+        "f1-score": 0.9054,
+        "support": 9917.0
+      },
+      "weighted avg": {
+        "precision": 0.9054,
+        "recall": 0.9054,
+        "f1-score": 0.9054,
+        "support": 9917.0
+      }
+    },
+    "inference_time_s": 0.0068,
+    "n_test_samples": 9917
+  },
+  "random_forest": {
+    "label": "Random Forest",
+    "accuracy": 0.8621,
+    "precision": 0.8556,
+    "recall": 0.8724,
+    "f1": 0.8639,
+    "roc_auc": 0.9387,
+    "confusion_matrix": {
+      "true_negative": 4207,
+      "false_positive": 733,
+      "false_negative": 635,
+      "true_positive": 4342,
+      "false_positive_rate": 0.1484,
+      "false_negative_rate": 0.1276
+    },
+    "classification_report": {
+      "negative": {
+        "precision": 0.8689,
+        "recall": 0.8516,
+        "f1-score": 0.8602,
+        "support": 4940.0
+      },
+      "positive": {
+        "precision": 0.8556,
+        "recall": 0.8724,
+        "f1-score": 0.8639,
+        "support": 4977.0
+      },
+      "accuracy": 0.8621,
+      "macro avg": {
+        "precision": 0.8622,
+        "recall": 0.862,
+        "f1-score": 0.862,
+        "support": 9917.0
+      },
+      "weighted avg": {
+        "precision": 0.8622,
+        "recall": 0.8621,
+        "f1-score": 0.862,
+        "support": 9917.0
+      }
+    },
+    "inference_time_s": 0.1204,
+    "n_test_samples": 9917
+  }
+}
