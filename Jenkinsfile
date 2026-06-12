@@ -8,7 +8,6 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('Install Dependencies') {
             steps {
                 bat 'python -m pip install -r requirements.txt'
@@ -38,7 +37,6 @@ pipeline {
                 ])
             }
         }
-
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -54,13 +52,11 @@ pipeline {
                 }
             }
         }
-
         stage('Docker Build') {
             steps {
                 bat 'docker build -t sentiment-analysis .'
             }
         }
-
         stage('Deploy Container') {
             steps {
                 bat 'docker stop sentiment-analysis-container || exit /b 0'
